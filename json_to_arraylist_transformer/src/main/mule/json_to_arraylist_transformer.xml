@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
+	
+<!-- 	["Tabrej", "Aigis","Nirdesh"]
+	http://localhost:8081/json -->
+	
+	<http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/>
+	<flow name="json_to_arraylistFlow">
+		<http:listener config-ref="HTTP_Listener_Configuration" path="/json" allowedMethods="POST" doc:name="HTTP"/>
+		<logger message="#[payload]" level="INFO" doc:name="Logger"/>
+		<json:json-to-object-transformer name="employee" returnClass="java.util.ArrayList" encoding="UTF-8" mimeType="application/java" doc:name="JSON to Object"/>
+		<logger message="#[payload]" level="INFO" doc:name="Logger"/>
+		<set-payload value="#[payload.get(0)]" doc:name="Set Payload"/>
+	</flow>
+</mule>

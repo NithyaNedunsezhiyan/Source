@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="1a75d0d5-eba4-4775-b161-49c828ecaaee" >
+        <http:listener-connection host="0.0.0.0" port="8086" />
+    </http:listener-config>
+    <jms:config name="JMS_Config" doc:name="JMS Config" doc:id="867c645d-6694-438b-8a84-39f37902f51a" >
+		<jms:active-mq-connection username="admin" password="admin">
+			<jms:caching-strategy >
+				<jms:default-caching />
+			</jms:caching-strategy>
+			<jms:factory-configuration brokerUrl="tcp://localhost:61616" />
+		</jms:active-mq-connection>
+		<jms:consumer-config>
+			<jms:consumer-type >
+				<jms:queue-consumer />
+			</jms:consumer-type>
+		</jms:consumer-config>
+	</jms:config>
+    
+   <flow name="sending-json-to-a-jms-queueFlow" doc:id="3640f3b7-459a-4fa6-9038-f85985b4bbde" >
+		<http:listener config-ref="HTTP_Listener_config" path="/publish" doc:name="Listener" doc:id="3c99fddf-d45b-40ea-8252-e77aba4be2c6" />
+		<choice doc:name="Choice" doc:id="72cbfeff-9c1a-4c75-89b7-b245d58d02bd" >
+			<when expression='#[payload.gender =="male"]'>
+				
+				<jms:publish config-ref="JMS_Config" destination="male" doc:name="Publish" doc:id="2fc4aee7-46bb-44b7-b833-7a899f692d3a" />
+			</when>
+			<otherwise>
+				
+				<jms:publish config-ref="JMS_Config" destination="other" doc:name="Publish" doc:id="df9369b3-61f8-4ec8-81a2-0d3253f32b75" />
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="Logger" doc:id="85b64154-f807-45ad-9a1a-55c51dc31284" message="Successfully published!"/>
+	</flow>
+</mule>
+	

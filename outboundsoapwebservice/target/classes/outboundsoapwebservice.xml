@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+">
+	<http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="4041" doc:name="HTTP Listener Configuration"/>
+	<ws:consumer-config name="Web_Service_Consumer" wsdlLocation="https://www.w3schools.com/xml/tempconvert.asmx?wsdl" service="TempConvert" port="TempConvertSoap" serviceAddress="http://www.w3schools.com/xml/tempconvert.asmx" doc:name="Web Service Consumer"/>
+	<flow name="outboundsoapwebserviceFlow">
+		<http:listener config-ref="HTTP_Listener_Configuration" path="/invokeOutboundMuleWebService" doc:name="HTTP"/>
+		<dw:transform-message doc:name="Transform Message" metadata:id="a12a4f6e-499b-4d6c-a243-db16b340b4d1">
+			<dw:input-payload mimeType="application/xml"/>
+			<dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 https://www.w3schools.com/xml/
+---
+{
+	ns0#FahrenheitToCelsius: {
+		ns0#Fahrenheit: payload.ns0#FahrenheitToCelsius.ns0#Fahrenheit
+	}
+}]]></dw:set-payload>
+		</dw:transform-message>
+		<ws:consumer config-ref="Web_Service_Consumer" operation="FahrenheitToCelsius" doc:name="Web Service Consumer"/>
+	</flow>
+</mule>

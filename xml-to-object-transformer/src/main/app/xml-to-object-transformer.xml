@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml"
+	xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	
+<!-- 	https://roytuts.com/convert-xml-to-jaxb-object-in-mule-esb/ -->
+<!-- 	<spring:beans>
+		<spring:bean name="JAXB_Context" class="javax.xml.bind.JAXBContext"
+			factory-method="newInstance">
+			<spring:constructor-arg value="com.lti.model" />
+		</spring:bean>
+	</spring:beans> -->
+	
+	<mulexml:jaxb-context name="JAXB_Context" packageNames="com.lti.model"
+		doc:name="JAXB Context" />
+	<flow name="xmlToObjectFlow" >
+	
+		<file:inbound-endpoint path="C:\Users\tabre\OneDrive\Desktop\docs\LTI\xml"
+			responseTimeout="10000" doc:name="File">
+			<file:filename-wildcard-filter pattern="employee.xml" />
+		</file:inbound-endpoint>
+		
+		<file:file-to-string-transformer
+			doc:name="File to String" />
+			
+		<logger message="#[message.payload]" level="INFO" doc:name="Logger" />
+		
+		<mulexml:jaxb-xml-to-object-transformer
+			name="XmlToCatalog" jaxbContext-ref="JAXB_Context" returnClass="com.lti.model.Employee"
+			doc:name="XML to JAXB Object" encoding="US-ASCII" mimeType="application/java"/>
+                <logger level="INFO" doc:name="Logger" message="#[payload]"/>
+	</flow>
+</mule>

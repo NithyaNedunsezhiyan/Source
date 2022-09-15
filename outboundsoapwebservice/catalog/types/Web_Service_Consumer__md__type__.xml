@@ -1,0 +1,216 @@
+<metadata__catalog__entry>
+  <version>5.2.0.0</version>
+  <types class="tree-map">
+    <entry>
+      <org.mule.common.metadata.DefaultMetaDataKey>
+        <id>FahrenheitToCelsius</id>
+        <displayName>FahrenheitToCelsius</displayName>
+        <category>DEFAULT</category>
+        <metaDataKeyPropertiesManager>
+          <properties>
+            <org.mule.common.metadata.key.property.dsql.DsqlFromMetaDataKeyProperty/>
+          </properties>
+        </metaDataKeyPropertiesManager>
+      </org.mule.common.metadata.DefaultMetaDataKey>
+      <org.mule.common.metadata.DefaultXmlMetaDataModel>
+        <dataType>XML</dataType>
+        <metaDataModelPropertiesManager>
+          <properties>
+            <org.mule.common.metadata.property.TextBasedExampleMetaDataModelProperty/>
+            <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty/>
+            <org.mule.common.metadata.property.StructureIdentifierMetaDataModelProperty>
+              <metaDataKey class="org.mule.common.metadata.DefaultMetaDataKey" reference="../../../../../org.mule.common.metadata.DefaultMetaDataKey"/>
+              <derivedStructure>false</derivedStructure>
+              <generatedStructure>false</generatedStructure>
+            </org.mule.common.metadata.property.StructureIdentifierMetaDataModelProperty>
+          </properties>
+        </metaDataModelPropertiesManager>
+        <fields>
+          <org.mule.common.metadata.DefaultMetaDataField>
+            <name>ns0:Fahrenheit</name>
+            <model class="org.mule.common.metadata.DefaultSimpleMetaDataModel">
+              <dataType>STRING</dataType>
+              <metaDataModelPropertiesManager>
+                <properties>
+                  <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                    <typeQName>
+                      <namespaceURI>http://www.w3.org/2001/XMLSchema</namespaceURI>
+                      <localPart>string</localPart>
+                      <prefix></prefix>
+                    </typeQName>
+                  </org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                </properties>
+              </metaDataModelPropertiesManager>
+            </model>
+            <accessType>READ_WRITE</accessType>
+            <metaDataFieldPropertyManager>
+              <properties>
+                <org.mule.common.metadata.property.QNameMetaDataProperty>
+                  <name>
+                    <namespaceURI>https://www.w3schools.com/xml/</namespaceURI>
+                    <localPart>Fahrenheit</localPart>
+                    <prefix>ns0</prefix>
+                  </name>
+                </org.mule.common.metadata.property.QNameMetaDataProperty>
+              </properties>
+            </metaDataFieldPropertyManager>
+          </org.mule.common.metadata.DefaultMetaDataField>
+        </fields>
+        <rootElement>
+          <namespaceURI>https://www.w3schools.com/xml/</namespaceURI>
+          <localPart>FahrenheitToCelsius</localPart>
+          <prefix>ns0</prefix>
+        </rootElement>
+        <schemas class="org.mule.common.metadata.StringBasedSchemaProvider">
+          <schemas>
+            <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;s:schema xmlns:s=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:http=&quot;http://schemas.xmlsoap.org/wsdl/http/&quot; xmlns:mime=&quot;http://schemas.xmlsoap.org/wsdl/mime/&quot; xmlns:soap=&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot; xmlns:soap12=&quot;http://schemas.xmlsoap.org/wsdl/soap12/&quot; xmlns:soapenc=&quot;http://schemas.xmlsoap.org/soap/encoding/&quot; xmlns:tm=&quot;http://microsoft.com/wsdl/mime/textMatching/&quot; xmlns:tns=&quot;https://www.w3schools.com/xml/&quot; xmlns:wsdl=&quot;http://schemas.xmlsoap.org/wsdl/&quot; elementFormDefault=&quot;qualified&quot; targetNamespace=&quot;https://www.w3schools.com/xml/&quot;&gt;&#xd;
+      &lt;s:element name=&quot;FahrenheitToCelsius&quot;&gt;&#xd;
+        &lt;s:complexType&gt;&#xd;
+          &lt;s:sequence&gt;&#xd;
+            &lt;s:element maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot; name=&quot;Fahrenheit&quot; type=&quot;s:string&quot;/&gt;&#xd;
+          &lt;/s:sequence&gt;&#xd;
+        &lt;/s:complexType&gt;&#xd;
+      &lt;/s:element&gt;&#xd;
+      &lt;s:element name=&quot;FahrenheitToCelsiusResponse&quot;&gt;&#xd;
+        &lt;s:complexType&gt;&#xd;
+          &lt;s:sequence&gt;&#xd;
+            &lt;s:element maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot; name=&quot;FahrenheitToCelsiusResult&quot; type=&quot;s:string&quot;/&gt;&#xd;
+          &lt;/s:sequence&gt;&#xd;
+        &lt;/s:complexType&gt;&#xd;
+      &lt;/s:element&gt;&#xd;
+      &lt;s:element name=&quot;CelsiusToFahrenheit&quot;&gt;&#xd;
+        &lt;s:complexType&gt;&#xd;
+          &lt;s:sequence&gt;&#xd;
+            &lt;s:element maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot; name=&quot;Celsius&quot; type=&quot;s:string&quot;/&gt;&#xd;
+          &lt;/s:sequence&gt;&#xd;
+        &lt;/s:complexType&gt;&#xd;
+      &lt;/s:element&gt;&#xd;
+      &lt;s:element name=&quot;CelsiusToFahrenheitResponse&quot;&gt;&#xd;
+        &lt;s:complexType&gt;&#xd;
+          &lt;s:sequence&gt;&#xd;
+            &lt;s:element maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot; name=&quot;CelsiusToFahrenheitResult&quot; type=&quot;s:string&quot;/&gt;&#xd;
+          &lt;/s:sequence&gt;&#xd;
+        &lt;/s:complexType&gt;&#xd;
+      &lt;/s:element&gt;&#xd;
+      &lt;s:element name=&quot;string&quot; nillable=&quot;true&quot; type=&quot;s:string&quot;/&gt;&#xd;
+    &lt;/s:schema&gt;</string>
+          </schemas>
+          <encoding>UTF-8</encoding>
+          <baseUri>file:/C:/Users/10712395/Desktop/Nithya/Software/AnypointStudio/https:/www.w3schools.com/xml/tempconvert.asmx%3Fwsdl</baseUri>
+        </schemas>
+        <namespaceManager>
+          <namespacePrefix class="tree-map">
+            <entry>
+              <string>https://www.w3schools.com/xml/</string>
+              <string>ns0</string>
+            </entry>
+          </namespacePrefix>
+        </namespaceManager>
+      </org.mule.common.metadata.DefaultXmlMetaDataModel>
+    </entry>
+    <entry>
+      <org.mule.common.metadata.DefaultMetaDataKey>
+        <id>FahrenheitToCelsiusResponse</id>
+        <displayName>FahrenheitToCelsiusResponse</displayName>
+        <category>DEFAULT</category>
+        <metaDataKeyPropertiesManager>
+          <properties>
+            <org.mule.common.metadata.key.property.dsql.DsqlFromMetaDataKeyProperty/>
+          </properties>
+        </metaDataKeyPropertiesManager>
+      </org.mule.common.metadata.DefaultMetaDataKey>
+      <org.mule.common.metadata.DefaultXmlMetaDataModel>
+        <dataType>XML</dataType>
+        <metaDataModelPropertiesManager>
+          <properties>
+            <org.mule.common.metadata.property.TextBasedExampleMetaDataModelProperty/>
+            <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty/>
+            <org.mule.common.metadata.property.StructureIdentifierMetaDataModelProperty>
+              <metaDataKey class="org.mule.common.metadata.DefaultMetaDataKey" reference="../../../../../org.mule.common.metadata.DefaultMetaDataKey"/>
+              <derivedStructure>false</derivedStructure>
+              <generatedStructure>false</generatedStructure>
+            </org.mule.common.metadata.property.StructureIdentifierMetaDataModelProperty>
+          </properties>
+        </metaDataModelPropertiesManager>
+        <fields>
+          <org.mule.common.metadata.DefaultMetaDataField>
+            <name>ns0:FahrenheitToCelsiusResult</name>
+            <model class="org.mule.common.metadata.DefaultSimpleMetaDataModel">
+              <dataType>STRING</dataType>
+              <metaDataModelPropertiesManager>
+                <properties>
+                  <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                    <typeQName reference="../../../../../../../../../entry/org.mule.common.metadata.DefaultXmlMetaDataModel/fields/org.mule.common.metadata.DefaultMetaDataField/model/metaDataModelPropertiesManager/properties/org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty/typeQName"/>
+                  </org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                </properties>
+              </metaDataModelPropertiesManager>
+            </model>
+            <accessType>READ_WRITE</accessType>
+            <metaDataFieldPropertyManager>
+              <properties>
+                <org.mule.common.metadata.property.QNameMetaDataProperty>
+                  <name>
+                    <namespaceURI>https://www.w3schools.com/xml/</namespaceURI>
+                    <localPart>FahrenheitToCelsiusResult</localPart>
+                    <prefix>ns0</prefix>
+                  </name>
+                </org.mule.common.metadata.property.QNameMetaDataProperty>
+              </properties>
+            </metaDataFieldPropertyManager>
+          </org.mule.common.metadata.DefaultMetaDataField>
+        </fields>
+        <rootElement>
+          <namespaceURI>https://www.w3schools.com/xml/</namespaceURI>
+          <localPart>FahrenheitToCelsiusResponse</localPart>
+          <prefix>ns0</prefix>
+        </rootElement>
+        <schemas class="org.mule.common.metadata.StringBasedSchemaProvider">
+          <schemas>
+            <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;s:schema xmlns:s=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:http=&quot;http://schemas.xmlsoap.org/wsdl/http/&quot; xmlns:mime=&quot;http://schemas.xmlsoap.org/wsdl/mime/&quot; xmlns:soap=&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot; xmlns:soap12=&quot;http://schemas.xmlsoap.org/wsdl/soap12/&quot; xmlns:soapenc=&quot;http://schemas.xmlsoap.org/soap/encoding/&quot; xmlns:tm=&quot;http://microsoft.com/wsdl/mime/textMatching/&quot; xmlns:tns=&quot;https://www.w3schools.com/xml/&quot; xmlns:wsdl=&quot;http://schemas.xmlsoap.org/wsdl/&quot; elementFormDefault=&quot;qualified&quot; targetNamespace=&quot;https://www.w3schools.com/xml/&quot;&gt;&#xd;
+      &lt;s:element name=&quot;FahrenheitToCelsius&quot;&gt;&#xd;
+        &lt;s:complexType&gt;&#xd;
+          &lt;s:sequence&gt;&#xd;
+            &lt;s:element maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot; name=&quot;Fahrenheit&quot; type=&quot;s:string&quot;/&gt;&#xd;
+          &lt;/s:sequence&gt;&#xd;
+        &lt;/s:complexType&gt;&#xd;
+      &lt;/s:element&gt;&#xd;
+      &lt;s:element name=&quot;FahrenheitToCelsiusResponse&quot;&gt;&#xd;
+        &lt;s:complexType&gt;&#xd;
+          &lt;s:sequence&gt;&#xd;
+            &lt;s:element maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot; name=&quot;FahrenheitToCelsiusResult&quot; type=&quot;s:string&quot;/&gt;&#xd;
+          &lt;/s:sequence&gt;&#xd;
+        &lt;/s:complexType&gt;&#xd;
+      &lt;/s:element&gt;&#xd;
+      &lt;s:element name=&quot;CelsiusToFahrenheit&quot;&gt;&#xd;
+        &lt;s:complexType&gt;&#xd;
+          &lt;s:sequence&gt;&#xd;
+            &lt;s:element maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot; name=&quot;Celsius&quot; type=&quot;s:string&quot;/&gt;&#xd;
+          &lt;/s:sequence&gt;&#xd;
+        &lt;/s:complexType&gt;&#xd;
+      &lt;/s:element&gt;&#xd;
+      &lt;s:element name=&quot;CelsiusToFahrenheitResponse&quot;&gt;&#xd;
+        &lt;s:complexType&gt;&#xd;
+          &lt;s:sequence&gt;&#xd;
+            &lt;s:element maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot; name=&quot;CelsiusToFahrenheitResult&quot; type=&quot;s:string&quot;/&gt;&#xd;
+          &lt;/s:sequence&gt;&#xd;
+        &lt;/s:complexType&gt;&#xd;
+      &lt;/s:element&gt;&#xd;
+      &lt;s:element name=&quot;string&quot; nillable=&quot;true&quot; type=&quot;s:string&quot;/&gt;&#xd;
+    &lt;/s:schema&gt;</string>
+          </schemas>
+          <encoding reference="../../../../entry/org.mule.common.metadata.DefaultXmlMetaDataModel/schemas/encoding"/>
+          <baseUri>file:/C:/Users/10712395/Desktop/Nithya/Software/AnypointStudio/https:/www.w3schools.com/xml/tempconvert.asmx%3Fwsdl</baseUri>
+        </schemas>
+        <namespaceManager>
+          <namespacePrefix class="tree-map">
+            <entry>
+              <string>https://www.w3schools.com/xml/</string>
+              <string>ns0</string>
+            </entry>
+          </namespacePrefix>
+        </namespaceManager>
+      </org.mule.common.metadata.DefaultXmlMetaDataModel>
+    </entry>
+  </types>
+  <connectorName>Web_Service_Consumer</connectorName>
+</metadata__catalog__entry>

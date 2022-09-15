@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+
+<jms:activemq-connector name="Active_MQ1" specification="1.1" username="admin" password="admin" brokerURL="tcp://localhost:61616" validateConnections="true" doc:name="Active MQ"/>
+	<http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8082" doc:name="HTTP Listener Configuration"/>
+
+    <flow name="csvFile-to-activemqFlow">
+		<file:inbound-endpoint path="C:\Users\10666128\input" moveToDirectory="C:\Users\10666128\output" responseTimeout="10000" doc:name="read csv file"/>
+		<file:file-to-string-transformer doc:name="File to String"/>
+		<logger message="payload message = #[payload]" level="INFO" doc:name="Log csv payload"/>
+		<jms:outbound-endpoint queue="demoQueue" connector-ref="Active_MQ1" doc:name="JMS-activemq"/>
+		<logger message="message published to ActiveMQ successfully!!!" level="INFO" doc:name="success message"/>
+		<set-payload value="Message Sent Successfully!!" doc:name="Message Sent"/>
+	</flow>	
+	
+	<flow name="enriched-payload-to-activemqFlow">
+	<http:listener config-ref="HTTP_Listener_Configuration"
+		path="/publish" doc:name="POST /publish" />
+	<object-to-string-transformer doc:name="Object to String" />
+	<set-variable variableName="greeting" value="#[payload]"
+		encoding="UTF-8" mimeType="text/plain" doc:name="Set Outer Variable" />
+	<logger message="message payload = #[payload]" level="INFO"
+		doc:name="Log Initial Greeting" />
+	<enricher target="#[flowVars.greeting]"
+		source="#[flowVars.greeting + ' Welcome to India!!']" doc:name="Message Enricher">
+		<processor-chain doc:name="Processor Chain">
+			<set-variable variableName="greeting"
+				value="#[flowVars.greeting + ' World']" doc:name="Set Inner Variable" />
+			<dw:transform-message doc:name="Transform Message: Change greeting Variable">
+				<dw:input-payload mimeType="application/java" />
+				<dw:set-variable variableName="greeting">
+           <![CDATA[%dw 1.0
+%output application/java
+---
+"HI!!!, " ++ flowVars.greeting ++ " Traveler"]]></dw:set-variable>
+			</dw:transform-message>
+			<set-payload value="#['some arbitrary payload']"
+				doc:name="Set Inner Payload" />
+			<logger message="inner payload = #[payload]" level="INFO"
+				doc:name="Log Inner Payload" />
+		</processor-chain>
+	</enricher>
+	<logger message="Actual input payload = #[payload]" level="INFO"
+		doc:name="Log actual input Payload" />
+	<logger
+		message="Log Outer Variable (Final greeting value): #[flowVars.greeting]"
+		level="INFO" doc:name="Log Outer Variable" />
+	<set-payload value="#[flowVars.greeting]"
+		doc:name="Set Payload (to value of greeting variable)" />
+	<logger message="Log Final Payload = #[payload]" level="INFO"
+		doc:name="Log Final Payload" />
+	<jms:outbound-endpoint queue="demoQueue"
+		connector-ref="Active_MQ1" doc:name="JMS-activemq" />
+	<set-payload value="Message Sent Successfully!!" doc:name="Message Sent" />
+ 
+</flow>
+	
+</mule>
